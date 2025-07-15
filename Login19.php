@@ -1,3 +1,25 @@
+<?php
+$mensagem = ''; // Variável para armazenar mensagens de feedback
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? ''; // Pega o nome de usuário do POST, usando operador null coalesce para evitar erro se não existir
+    $password = $_POST['password'] ?? ''; // Pega a senha do POST
+
+    // Valida se os campos não estão vazios
+    if (empty($username) || empty($password)) {
+        $mensagem = '<p style="color: red;">Por favor, preencha todos os campos.</p>';
+    } else {
+        // Valida as credenciais
+        if ($username === 'admin' && $password === '1234') {
+            $mensagem = '<p style="color: green;">Bem-vindo, ' . htmlspecialchars($username) . '!</p>';
+        } else {
+            $mensagem = '<p style="color: red;">Nome de usuário ou senha incorretos.</p>';
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -75,25 +97,6 @@
 
         <?php echo $mensagem; ?>
     </div>
-    <?php
-$mensagem = ''; // Variável para armazenar mensagens de feedback
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? ''; // Pega o nome de usuário do POST, usando operador null coalesce para evitar erro se não existir
-    $password = $_POST['password'] ?? ''; // Pega a senha do POST
-
-    // Valida se os campos não estão vazios
-    if (empty($username) || empty($password)) {
-        $mensagem = '<p style="color: red;">Por favor, preencha todos os campos.</p>';
-    } else {
-        // Valida as credenciais
-        if ($username === 'admin' && $password === '1234') {
-            $mensagem = '<p style="color: green;">Bem-vindo, ' . htmlspecialchars($username) . '!</p>';
-        } else {
-            $mensagem = '<p style="color: red;">Nome de usuário ou senha incorretos.</p>';
-        }
-    }
-}
-?>
+ 
 </body>
 </html>
